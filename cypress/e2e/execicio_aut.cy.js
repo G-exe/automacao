@@ -1,19 +1,21 @@
 /// <reference types="cypress"/>
 var faker = require('faker');
 
-beforeEach(() => {
-    cy.visit('http://lojaebac.ebaconline.art.br')
-        
-    });
+//beforeEach(() => { });
     
     describe('Exercicio cypress', () => {
 
-     it('executar login', () => {
+     it.only('executar login', () => {
         cy.get('.icon-user-unfollow').click()
-        cy.get('#username').type('aluno_ebac@teste.com')
-        cy.get('#password').type('teste@teste.com')
+        cy.fixture('perfil').then(dados => {
+
+        cy.get('#username').type(dados.usuario)
+        cy.get('#password').type(dados.senha)
         cy.get('.woocommerce-form > .button').click()
         cy.get('.woocommerce-MyAccount-content').should('contain', 'A partir do painel de controle de sua conta, você pode ver suas compras recentes,')
+
+        }) 
+        
     });
 
     it('Executar pré-cadastro', () => {
